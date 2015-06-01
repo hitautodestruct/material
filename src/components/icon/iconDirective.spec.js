@@ -1,4 +1,4 @@
-describe('mdIcon directive', function() {
+ddescribe('mdIcon directive', function() {
   var el;
   var $scope;
   var $compile;
@@ -43,7 +43,7 @@ describe('mdIcon directive', function() {
   });
 
 
-  describe('using md-font-icon=""', function() {
+  describe('using font-icons with classnames: md-font-icon=""', function() {
 
     it('should render correct HTML with md-font-icon value as class', function() {
       el = make( '<md-icon md-font-icon="android"></md-icon>');
@@ -62,11 +62,13 @@ describe('mdIcon directive', function() {
 
   });
 
-  describe('using md-font-library=""', function() {
+  describe('using font-icons with ligatures: md-font-library=""', function() {
 
     it('should render correct HTML with ligature and md-font-library value as class', function() {
-      el = make( '<md-icon md-font-library="material-icons">face</md-icon>');
+      el = make( '<md-icon md-font-library="material-icons" class="md-48">face</md-icon>');
+
       expect(el.html()).toEqual('<span ng-transclude=""><span class="ng-scope">face</span></span>');
+      expect(el.attr('class').indexOf('material-icons md-48')).toBeGreaterThan(-1);
     });
 
     it('should render correct HTML without aria-label', function() {
