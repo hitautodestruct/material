@@ -47,9 +47,42 @@ describe('mdIcon directive', function() {
 
     it('should render correct HTML with md-font-icon value as class', function() {
       el = make( '<md-icon md-font-icon="android"></md-icon>');
-      expect(el.html()).toEqual('<span class="md-font android" ng-class="fontIcon"></span>');
+      expect(el.html()).toEqual('<span class="md-font  android" ng-class="fontIcon"></span>');
     });
 
+    it('should transclude class specifiers', function() {
+      el = make( '<md-icon md-font-icon="android" class="material-icons"></md-icon>');
+      expect(el.html()).toEqual('<span class="md-font material-icons android" ng-class="fontIcon"></span>');
+    });
+
+    it('should not render any inner content if the md-font-icon value is empty', function() {
+      el = make( '<md-icon md-font-icon=""></md-icon>' );
+      expect(el.html()).toEqual('');
+    });
+
+  });
+
+  describe('using md-font-library=""', function() {
+
+    it('should render correct HTML with ligature and md-font-library value as class', function() {
+      el = make( '<md-icon md-font-library="material-icons">face</md-icon>');
+      expect(el.html()).toEqual('<span ng-transclude=""><span class="ng-scope">face</span></span>');
+    });
+
+    it('should render correct HTML without aria-label', function() {
+      el = make( '<md-icon md-font-library="material-icons">face</md-icon>');
+      expect(el.html().indexOf('aria-label')).toEqual(-1);
+    });
+
+    it('should render correct HTML without aria-hidden', function() {
+      el = make( '<md-icon md-font-library="material-icons">face</md-icon>');
+      expect(el.html().indexOf('aria-hidden')).toEqual(-1);
+    });
+
+    it('should render correct HTML without role attribute', function() {
+      el = make( '<md-icon md-font-library="material-icons">face</md-icon>');
+      expect(el.html().indexOf('role')).toEqual(-1);
+    });
   });
 
   describe('using md-svg-icon=""', function() {
